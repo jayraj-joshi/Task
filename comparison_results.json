@@ -1,0 +1,82 @@
+[
+  {
+    "doc": "First10",
+    "query": "What are the projected real GDP growth rates for 2024 and 2025?",
+    "json_tokens": 899,
+    "toon_tokens": 652,
+    "diff": 247,
+    "reduction_pct": 27.474972191323694
+  },
+  {
+    "doc": "First10",
+    "query": "How has the unemployment rate projection changed compared to the previous summary?",
+    "json_tokens": 895,
+    "toon_tokens": 648,
+    "diff": 247,
+    "reduction_pct": 27.59776536312849
+  },
+  {
+    "doc": "First10",
+    "query": "What is the median projection for the federal funds rate at the end of 2024?",
+    "json_tokens": 900,
+    "toon_tokens": 653,
+    "diff": 247,
+    "reduction_pct": 27.444444444444443
+  },
+  {
+    "doc": "First10",
+    "query": "Summarize the projections for PCE inflation and core PCE inflation.",
+    "json_tokens": 897,
+    "toon_tokens": 650,
+    "diff": 247,
+    "reduction_pct": 27.536231884057973
+  },
+  {
+    "doc": "First10",
+    "query": "How do the projections for 2026 differ from the longer-run projections?",
+    "json_tokens": 897,
+    "toon_tokens": 650,
+    "diff": 247,
+    "reduction_pct": 27.536231884057973
+  },
+  {
+    "doc": "AllTransformer",
+    "query": "What is the complexity of Scaled Dot-Product Attention?",
+    "json_tokens": 2904,
+    "toon_tokens": 2249,
+    "diff": 655,
+    "reduction_pct": 22.55509641873278
+  },
+  {
+    "doc": "AllTransformer",
+    "query": "How does the Multi-Head Attention mechanism differ from single-head attention?",
+    "json_tokens": 2906,
+    "toon_tokens": 2251,
+    "diff": 655,
+    "reduction_pct": 22.539573296627665
+  },
+  {
+    "doc": "AllTransformer",
+    "query": "What are the experimental results on the WMT 2014 translation task?",
+    "json_tokens": 2907,
+    "toon_tokens": 2252,
+    "diff": 655,
+    "reduction_pct": 22.531819745442036
+  },
+  {
+    "doc": "AllTransformer",
+    "query": "Explain the Positional Encoding used in the model.",
+    "json_tokens": 2902,
+    "toon_tokens": 2247,
+    "diff": 655,
+    "reduction_pct": 22.57064093728463
+  },
+  {
+    "doc": "AllTransformer",
+    "query": "What are the advantages of the Transformer architecture over RNNs?",
+    "json_tokens": 2905,
+    "toon_tokens": 2250,
+    "diff": 655,
+    "reduction_pct": 22.547332185886404
+  }
+]

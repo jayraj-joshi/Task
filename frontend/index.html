@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ChunkSmith PageIndexer — Upload PDFs, build hierarchical document trees, and query them with AI-powered RAG." />
+  <title>ChunkSmith PageIndexer</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ───────────── Sidebar ───────────── -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon">◆</span>
+        <h1>ChunkSmith</h1>
+      </div>
+      <p class="tagline">PageIndexer</p>
+    </div>
+
+    <!-- Upload Section -->
+    <div class="upload-section">
+      <label for="pdf-upload" class="upload-area" id="upload-area">
+        <div class="upload-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <span class="upload-text">Drop PDF or click to upload</span>
+        <input type="file" id="pdf-upload" accept=".pdf" hidden />
+      </label>
+      <div id="upload-progress" class="upload-progress hidden">
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <span class="progress-label" id="progress-label">Processing…</span>
+      </div>
+    </div>
+
+    <!-- Document List -->
+    <div class="doc-list-section">
+      <h2 class="section-title">Documents</h2>
+      <ul id="doc-list" class="doc-list">
+        <!-- populated by JS -->
+      </ul>
+      <div id="doc-empty" class="doc-empty">
+        <span>No documents yet</span>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <span>Powered by RAG · TOON trees</span>
+    </div>
+  </aside>
+
+  <!-- ───────────── Main Content ───────────── -->
+  <main id="main" class="main">
+
+    <!-- Hero / Empty State -->
+    <div id="hero" class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-content">
+        <div class="hero-icon">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="url(#grad)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <defs>
+              <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#a78bfa"/>
+                <stop offset="100%" style="stop-color:#60a5fa"/>
+              </linearGradient>
+            </defs>
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </div>
+        <h2>Ask your documents anything</h2>
+        <p>Upload a PDF on the left to get started. ChunkSmith will build a hierarchical tree index and let you query it with AI.</p>
+      </div>
+    </div>
+
+    <!-- Chat Area (shown when a doc is selected) -->
+    <div id="chat-area" class="chat-area hidden">
+      <div class="chat-header">
+        <div class="chat-doc-info">
+          <span class="chat-doc-icon">📄</span>
+          <span id="chat-doc-name" class="chat-doc-name">document.pdf</span>
+        </div>
+        <span class="chat-doc-id" id="chat-doc-id">ID: —</span>
+      </div>
+
+      <div class="chat-messages" id="chat-messages">
+        <!-- messages populated by JS -->
+      </div>
+
+      <form id="query-form" class="query-form" autocomplete="off">
+        <div class="input-wrapper">
+          <input type="text" id="query-input" placeholder="Ask a question about this document…" required />
+          <button type="submit" id="send-btn" class="send-btn" aria-label="Send query">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

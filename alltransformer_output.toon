@@ -1,0 +1,134 @@
+doc_name: alltransformer.pdf
+structure:
+  -
+    title: Preface
+    start_index: 1
+    end_index: 2
+    summary: 
+    split_document_anchor: Preface
+    chunk_excerpt_index: 0
+    node_id: 0000
+  -
+    title: Introduction
+    start_index: 2
+    end_index: 2
+    nodes:
+      [2,]{title,start_index,end_index,summary,split_document_anchor,chunk_excerpt_index,node_id}:
+        Recurrent Neural Networks and Attention Mechanisms,2,2,"This section elaborates on the use of recurrent neural networks and attention mechanisms in sequence modeling and transduction problems, emphasizing the limitations of sequential computation and the benefits of attention mechanisms.","Recurrent neural networks, long short-term memory [ 13] and gated recurrent [ 7] neural networks",0,0002
+        Attention Mechanisms in Sequence Modeling,2,2,"The section discusses the role of attention mechanisms in sequence modeling and transduction models, explaining how they allow modeling dependencies without regard to their distance in the input or output sequences.","Attention mechanisms have become an integral part of compelling sequence modeling and transduc- tion models in various tasks, allowing modeling of dependencies without regard to their distance in the input or output sequences [ 2,19].",0,0003
+    summary: "The introduction discusses the importance of recurrent neural networks and attention mechanisms in sequence modeling and transduction problems, highlighting the limitations of sequential computation and the potential of attention mechanisms."
+    split_document_anchor: 1 Introduction
+    chunk_excerpt_index: 0
+    node_id: 0001
+  -
+    title: Background
+    start_index: 2
+    end_index: 2
+    nodes:
+      [2,]{title,start_index,end_index,summary,split_document_anchor,chunk_excerpt_index,node_id}:
+        Reducing Sequential Computation,2,2,"This section describes efforts to reduce sequential computation in sequence transduction models, including the use of convolutional neural networks and attention mechanisms.","The goal of reducing sequential computation also forms the foundation of the Extended Neural GPU [16], ByteNet [ 18] and ConvS2S [ 9], all of which use convolutional neural networks as basic building block, computing hidden representations in parallel for all input and output positions.",0,0005
+        Transformer Model,2,2,"The section introduces the Transformer model, which relies entirely on an attention mechanism to draw global dependencies between input and output, allowing for significantly more parallelization.","In this work we propose the Transformer, a model architecture eschewing recurrence and instead relying entirely on an attention mechanism to draw global dependencies between input and output.",0,0006
+    summary: "The background section provides an overview of recent work on reducing sequential computation in sequence transduction models, including the Extended Neural GPU, ByteNet, and ConvS2S, and introduces the Transformer model."
+    split_document_anchor: 2 Background
+    chunk_excerpt_index: 0
+    node_id: 0004
+  -
+    title: Model Architecture
+    start_index: 2
+    end_index: 3
+    nodes:
+      -
+        title: Encoder and Decoder Stacks
+        start_index: 3
+        end_index: 3
+        summary: "This section details the architecture of the encoder and decoder stacks in the Transformer, including the use of multi-head self-attention and feed-forward networks."
+        split_document_anchor: 3.1 Encoder and Decoder Stacks
+        chunk_excerpt_index: 0
+        node_id: 0008
+      -
+        title: Attention
+        start_index: 3
+        end_index: 4
+        nodes:
+          [2,]{title,start_index,end_index,summary,split_document_anchor,chunk_excerpt_index,node_id}:
+            Scaled Dot-Product Attention,4,4,"This subsection describes the scaled dot-product attention mechanism, which is used in the Transformer to compute the compatibility function between queries and keys.",3.2.1 Scaled Dot-Product Attention,0,0010
+            Multi-Head Attention,4,5,The multi-head attention section explains how the Transformer uses multiple attention heads to jointly attend to information from different representation subspaces at different positions.,3.2.2 Multi-Head Attention,0,0011
+        summary: "The attention section explains the concept of attention in the Transformer, including scaled dot-product attention and multi-head attention."
+        split_document_anchor: 3.2 Attention
+        chunk_excerpt_index: 0
+        node_id: 0009
+      -
+        title: "Position-wise Feed-Forward Networks"
+        start_index: 5
+        end_index: 5
+        summary: "This section describes the position-wise feed-forward networks used in the Transformer, which are applied to each position separately and identically."
+        split_document_anchor: "3.3 Position-wise Feed-Forward Networks"
+        chunk_excerpt_index: 0
+        node_id: 0012
+      -
+        title: Embeddings and Softmax
+        start_index: 5
+        end_index: 6
+        summary: "The embeddings and softmax section explains how the Transformer uses learned embeddings to convert input and output tokens to vectors of dimension dmodel, and how the decoder output is converted to predicted next-token probabilities."
+        split_document_anchor: 3.4 Embeddings and Softmax
+        chunk_excerpt_index: 0
+        node_id: 0013
+      -
+        title: Positional Encoding
+        start_index: 6
+        end_index: 6
+        summary: The positional encoding section describes how positional encodings are added to the input embeddings to inject information about the relative or absolute position of tokens in the sequence.
+        split_document_anchor: 3.5 Positional Encoding
+        chunk_excerpt_index: 0
+        node_id: 0014
+    summary: "The model architecture section describes the architecture of the Transformer, including the encoder and decoder stacks, and the use of self-attention and feed-forward networks."
+    split_document_anchor: 3 Model Architecture
+    chunk_excerpt_index: 0
+    node_id: 0007
+  -
+    title: "Why Self-Attention"
+    start_index: 6
+    end_index: 5
+    nodes:
+      [1,]{title,start_index,end_index,summary,split_document_anchor,chunk_excerpt_index,node_id}:
+        Computational Complexity and Parallelization,5,7,The section discusses the computational complexity and parallelization capabilities of self-attention layers compared to recurrent and convolutional layers.,In this section we compare various aspects of self-attention layers to the recurrent and convolu- tional layers commonly used for mapping one variable-length sequence of symbol representations,0,0016
+    summary: "This section compares self-attention layers to recurrent and convolutional layers, highlighting the advantages of self-attention in terms of computational complexity and parallelization."
+    split_document_anchor: "4 Why Self-Attention"
+    chunk_excerpt_index: 0
+    node_id: 0015
+  -
+    title: Training
+    start_index: 7
+    end_index: 7
+    nodes:
+      [4,]{title,start_index,end_index,summary,split_document_anchor,chunk_excerpt_index,node_id}:
+        Training Data and Batching,7,7,"This section details the training data and batching process for the Transformer model, including the use of byte-pair encoding and sentence batching.",5.1 Training Data and Batching,0,0018
+        Hardware and Schedule,7,7,"The hardware and schedule section describes the hardware used for training the Transformer model and the training schedule, including the number of training steps and the learning rate schedule.",5.2 Hardware and Schedule,0,0019
+        Optimizer,7,7,The optimizer section explains the use of the Adam optimizer and the learning rate schedule for training the Transformer model.,5.3 Optimizer,0,0020
+        Regularization,7,8,"The regularization section describes the types of regularization used during training, including residual dropout and label smoothing.",5.4 Regularization,0,0021
+    summary: "The training section describes the training regime for the Transformer model, including the training data, batching, hardware, optimizer, and regularization."
+    split_document_anchor: 5 Training
+    chunk_excerpt_index: 0
+    node_id: 0017
+  -
+    title: Results
+    start_index: 8
+    end_index: 8
+    nodes:
+      [3,]{title,start_index,end_index,summary,split_document_anchor,chunk_excerpt_index,node_id}:
+        Machine Translation,8,8,"This section provides detailed results on the performance of the Transformer model on machine translation tasks, including BLEU scores and training costs.",6.1 Machine Translation,0,0023
+        Model Variations,8,9,The model variations section evaluates the importance of different components of the Transformer model by varying the base model in different ways.,6.2 Model Variations,0,0024
+        English Constituency Parsing,9,10,"This section describes experiments on English constituency parsing using the Transformer model, including the training process and results.",6.3 English Constituency Parsing,0,0025
+    summary: "The results section presents the performance of the Transformer model on machine translation tasks, including BLEU scores and training costs."
+    split_document_anchor: 6 Results
+    chunk_excerpt_index: 0
+    node_id: 0022
+  -
+    title: Conclusion
+    start_index: 10
+    end_index: 15
+    summary: The conclusion section summarizes the contributions of the work and discusses future research directions.
+    split_document_anchor: 7 Conclusion
+    chunk_excerpt_index: 0
+    node_id: 0026
+doc_description: "This document provides an in-depth exploration of the Transformer model, including its background, architecture, training, and results on machine translation and constituency parsing, with a focus on the advantages of self-attention mechanisms over traditional recurrent and convolutional layers."

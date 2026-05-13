@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import List, Optional
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy import create_engine, Column, Integer, String, Text, JSON, DateTime, func
 from sqlalchemy.ext.declarative import declarative_base
@@ -43,6 +44,15 @@ Base.metadata.create_all(bind=engine)
 
 # FastAPI App
 app = FastAPI(title="ChunkSmith PageIndexer API")
+
+# CORS – allow the frontend to talk to the API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Dependency
 def get_db():

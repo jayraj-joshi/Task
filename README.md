@@ -40,11 +40,18 @@ NEONDB_STRING='postgresql://user:pass@host/dbname?sslmode=require'
 
 The system now includes a production-ready API that uses a database to cache processed documents.
 
-### Start the API Server
+### Start the API Server (Local)
 ```bash
 python api.py
 ```
 Visit `http://localhost:8000/docs` for the interactive API documentation.
+
+### Deployment (Render)
+When deploying to Render as a **Web Service**, use the following configuration:
+- **Runtime**: `Python 3`
+- **Build Command**: `pip install -r requirements.txt`
+- **Start Command**: `uvicorn api:app --host 0.0.0.0 --port $PORT`
+- **Environment Variables**: Ensure `NEONDB_STRING`, `HF_TOKEN`, `PAGEINDEX_MODEL`, and `RAG_MODEL` are set in the Render dashboard.
 
 ### API Features
 - **Smart Caching:** Files are hashed using SHA-256. If you upload a PDF that has already been processed, the API returns the cached result instantly from the DB, saving LLM costs.
@@ -162,6 +169,27 @@ python3 rag_engine.py
 
 ---
 
+## Token Usage & Efficiency
+
+The PageIndexer uses the **TOON** format to represent document hierarchies, significantly reducing token consumption compared to standard JSON.
+
+### Performance Comparison
+| Financial Summary (`First10.pdf`) | Technical Paper (`alltransformer.pdf`) |
+|:---:|:---:|
+| <img src="stats/First10_comparison.png" width="100%"> | <img src="stats/AllTransformer_comparison.png" width="100%"> |
+
+### Key Metrics
+- **Average Token Reduction**: **23.7%**
+- **Financial Documents**: Up to **27.6%** reduction.
+- **Technical Documents**: Up to **22.5%** reduction.
+- **Absolute Savings**: Over **600 tokens per prompt** for complex technical papers.
+
+![Efficiency by Doc Type](stats/reduction_by_doc_type.png)
+
+This efficiency allows for deeper document trees and more context to be processed within the same LLM context window, directly reducing costs and latency.
+
+---
+
 ## How the Hierarchical RAG Works
 
 1.  **Selection**: The user query and the summary tree (TOON format) are sent to the LLM to identify the most relevant sections (node IDs).
@@ -175,4 +203,28 @@ This approach **minimizes token usage** and **avoids vector database complexity*
 - **`verify_rag.py`**: Run this to test the full pipeline with a pre-defined query.
 - **`chunksmith/llm_support/client.py`**: Handles API calls to Hugging Face / OpenAI.
 - **`api.py`**: Uses SQLAlchemy to manage the PostgreSQL schema.
-# Task
+
+---
+
+## Frontend Deployment (Vercel)
+
+The frontend is a lightweight vanilla JS application located in the `frontend/` directory.
+
+### Deployment Steps (Vercel Dashboard)
+1. **Connect Repository**: Push your code to GitHub/GitLab/Bitbucket.
+2. **New Project**: In Vercel, click "Add New" → "Project".
+3. **Select Repository**: Import your `ChunkSmith_PageIndexer` repo.
+4. **Project Settings**:
+   - **Root Directory**: Select `frontend`.
+   - **Build Command**: Leave empty (it's a static site).
+   - **Output Directory**: Leave empty.
+5. **Deploy**: Click "Deploy".
+
+### Deployment Steps (Vercel CLI)
+If you have the [Vercel CLI](https://vercel.com/docs/cli) installed:
+```bash
+cd frontend
+vercel --prod
+```
+
+Your frontend will now be live and automatically communicate with the Render API!
