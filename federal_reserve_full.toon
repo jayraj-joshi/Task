@@ -1,0 +1,38 @@
+doc_name: temp_72cbe81e268e1a7bbcaeb92031ccd417597a6b74d123ebc1cb274796621e314b.pdf
+structure:
+  -
+    title: Preface
+    start_index: 1
+    end_index: 3
+    summary: 
+    split_document_anchor: Preface
+    chunk_excerpt_index: 0
+    node_id: 0000
+  -
+    title: Overview
+    start_index: 3
+    end_index: 3
+    nodes:
+      [5,]{title,start_index,end_index,summary,split_document_anchor,chunk_excerpt_index,node_id}:
+        Conducting monetary policy and monitoring economic developments,3,3,"This section reviews the Federal Reserve's monetary policy and economic developments in 2023, including the Federal Reserve's efforts to maintain price stability and promote maximum employment. It includes summaries of the March 2024 and June 2023 Monetary Policy Reports to Congress.",March 2024 Summary,0,0002
+        Promoting financial system stability,3,3,"This section discusses the Federal Reserve's activities and research aimed at fostering a resilient and stable financial system, including monitoring financial vulnerabilities and domestic and international cooperation.",March 2024 Summary,0,0003
+        Supervising and regulating financial institutions and their activities,3,3,"This section summarizes the Federal Reserve's efforts in supervising and regulating financial institutions, including oversight and examinations, supervisory policymaking, and regulatory activities and enforcement.",March 2024 Summary,0,0004
+        Fostering payment and settlement system safety and efficiency,3,3,"This section describes the Federal Reserve's actions to promote the effectiveness of the nation's payment systems, including initiatives to enhance payment system safety and data on Reserve Bank services and income.",March 2024 Summary,0,0005
+        Promoting consumer protection and community development,3,3,"This section provides information on the Federal Reserve's efforts to promote a fair and transparent financial services market, protect consumer rights, and ensure that Board policies and research take consumer and community perspectives into account.",March 2024 Summary,0,0006
+    summary: "This section provides an overview of the Federal Reserve's operations and activities for the calendar year 2023, categorized into five key functional areas: conducting monetary policy, promoting financial system stability, supervising and regulating financial institutions, fostering payment and settlement system safety and efficiency, and promoting consumer protection and community development."
+    split_document_anchor: 1Overview
+    chunk_excerpt_index: 0
+    node_id: 0001
+  -
+    title: Monetary Policy and Economic Developments
+    start_index: 3
+    end_index: 10
+    nodes:
+      [2,]{title,start_index,end_index,summary,split_document_anchor,chunk_excerpt_index,node_id}:
+        Inflation,10,10,"This section discusses the recent trends in consumer price inflation, noting that while inflation has slowed, it remains above the Federal Open Market Committee's (FOMC) objective of 2 percent. It also highlights the core PCE price index and measures of longer-term inflation expectations.",Inflation.,0,0008
+        Labor market,10,10,"This section reviews the state of the labor market, noting that it remains relatively tight with job gains averaging 239,000 per month since June and the unemployment rate near historical lows. It also discusses the balance between labor demand and supply and the impact on nominal wage gains.",The labor market hasremained relatively tight,0,0009
+    summary: "This section reviews the Federal Reserve's monetary policy and economic developments in 2023, including the Federal Reserve's efforts to maintain price stability and promote maximum employment. It includes summaries of the March 2024 and June 2023 Monetary Policy Reports to Congress."
+    split_document_anchor: Recent Economic and Financial Developments
+    chunk_excerpt_index: 0
+    node_id: 0007
+doc_description: "The document provides a comprehensive overview of the Federal Reserve's operations and activities for the calendar year 2023, organized into five key functional areas: conducting monetary policy, promoting financial system stability, supervising and regulating financial institutions, fostering payment and settlement system safety and efficiency, and promoting consumer protection and community development. The document begins with an overview that categorizes the Federal Reserve's activities into these functional areas, detailing the specific efforts and initiatives undertaken in each. It then delves deeper into the monetary policy and economic developments of 2023, focusing on maintaining price stability and promoting maximum employment. This section includes detailed summaries of the Federal Reserve's Monetary Policy Reports to Congress for March 2024 and June 2023, providing insights into the current state of inflation and the labor market. The document is structured to offer a thorough understanding of the Federal Reserve's multifaceted role in the U.S. economy, highlighting both the challenges and successes in each of its key areas of operation."

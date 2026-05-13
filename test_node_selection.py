@@ -38,7 +38,7 @@ def main():
     load_env()
     token = os.getenv("HF_TOKEN")
     
-    with open("First10_output.toon", "r") as f:
+    with open("federal_reserve_full.toon", "r") as f:
         tree_toon = f.read()
 
     query = "Numbers with labour market"
