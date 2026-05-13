@@ -5,6 +5,7 @@ from typing import List, Dict, Any
 
 from chunksmith.config import load_settings
 from chunksmith.llm_support.client import llm_completion, extract_json
+from chunksmith.llm_support.prompts import build_node_selection_prompt, build_rag_answer_prompt
 
 def find_node_text(nodes: List[Dict[str, Any]], node_ids: List[str]) -> List[str]:
     """Recursively find text for given node IDs in the document structure."""
@@ -23,27 +24,14 @@ def find_node_text(nodes: List[Dict[str, Any]], node_ids: List[str]) -> List[str
             texts.extend(find_node_text(node["nodes"], node_ids))
     return texts
 
+from chunksmith.llm_support.prompts import NODE_SELECTION_SYSTEM
+
 def select_relevant_nodes(settings, tree_toon: str, query: str) -> List[str]:
     """Ask LLM to select relevant node IDs from the summary tree."""
-    prompt = f"""
-You are a precision retrieval assistant. Below is a hierarchical summary (in TOON format) of a document.
-Your task is to identify which sections (node IDs) are most relevant to answer the user's query.
-
-DOCUMENT TREE:
-{tree_toon}
-
-USER QUERY: {query}
-
-Instructions:
-1. Analyze the query and the summaries in the tree.
-2. Return a JSON list of node IDs (strings) that likely contain the information needed to answer the query.
-3. Be specific. If sub-sections are available, select the most relevant sub-sections.
-4. Return ONLY the JSON list of strings.
-
-Example Output:
-["0003", "0009"]
-"""
-    response = llm_completion(settings, settings.rag_model, prompt)
+    system_msg = {"role": "system", "content": NODE_SELECTION_SYSTEM}
+    user_prompt = f"DOCUMENT TREE (TOON format):\n{tree_toon}\n\nUSER QUERY: {query}\n\nReturn the JSON list of relevant node IDs:"
+    
+    response = llm_completion(settings, settings.rag_model, user_prompt, chat_history=[system_msg])
     node_ids = extract_json(response)
     if isinstance(node_ids, list):
         return [str(nid) for nid in node_ids]
@@ -52,20 +40,7 @@ Example Output:
 def generate_final_answer(settings, context_texts: List[str], query: str) -> str:
     """Generate final answer using the extracted context."""
     context = "\n\n---\n\n".join(context_texts)
-    prompt = f"""
-You are an expert document assistant. Use the provided context from the document to answer the user's query.
-
-CONTEXT:
-{context}
-
-USER QUERY: {query}
-
-Instructions:
-- Answer the query accurately based ONLY on the provided context.
-- If the context doesn't contain the answer, explicitly state that the information is not available in the selected sections.
-- Use a professional and helpful tone.
-- If relevant, mention which parts of the context you are using.
-"""
+    prompt = build_rag_answer_prompt(query, context)
     return llm_completion(settings, settings.rag_model, prompt, max_tokens=2048)
 
 def main():

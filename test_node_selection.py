@@ -4,6 +4,8 @@ import requests
 
 from chunksmith.llm_support.prompts import build_node_selection_prompt
 
+from chunksmith.llm_support.prompts import NODE_SELECTION_SYSTEM
+
 def load_env():
     with open(".env", "r") as f:
         for line in f:
@@ -11,14 +13,17 @@ def load_env():
                 key, value = line.strip().split("=", 1)
                 os.environ[key] = value
 
-def llm_call(model: str, prompt: str, token: str) -> str:
+def llm_call(model: str, system_prompt: str, user_prompt: str, token: str) -> str:
     url = "https://router.huggingface.co/v1/chat/completions"
     headers = {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json"
     }
     payload = {
-        "messages": [{"role": "user", "content": prompt}],
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ],
         "model": model,
         "max_tokens": 128,
         "stream": False
@@ -36,9 +41,9 @@ def main():
     with open("First10_output.toon", "r") as f:
         tree_toon = f.read()
 
-    query = "How have the risks to achieving the Committee's employment and inflation goals changed according to the March 2024 Summary?"
+    query = "Numbers with labour market"
     
-    prompt = build_node_selection_prompt(tree_toon, query)
+    user_prompt = f"DOCUMENT TREE (TOON format):\n{tree_toon}\n\nUSER QUERY: {query}\n\nReturn the JSON list of relevant node IDs:"
     
     models = [
         "Qwen/Qwen2.5-7B-Instruct:together",
@@ -46,11 +51,11 @@ def main():
     ]
     
     print(f"Task: Select relevant nodes for query: '{query}'")
-    print(f"Expected ID: 0002 (March 2024 Summary)\n")
+    print(f"Expected ID: 0009 (Labor market)\n")
     
     for model in models:
         print(f"Calling {model}...")
-        result = llm_call(model, prompt, token)
+        result = llm_call(model, NODE_SELECTION_SYSTEM, user_prompt, token)
         print(f"RESULT: {result}")
         print("-" * 30)
 
