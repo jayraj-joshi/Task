@@ -1,0 +1,7 @@
+# Non-secret defaults (override with env vars — see repo .env.example)
+model: gpt-4o-2024-11-20
+pdf_parser: PyPDF2
+max_tokens_per_chunk: 20000
+overlap_pages: 1
+# Extra LLM call after the outline tree is complete (see build_outline_from_pdf(..., generate_doc_summary=...))
+generate_doc_summary: false
