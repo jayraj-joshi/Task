@@ -54,6 +54,7 @@ If the prompt also includes appended instructions (e.g. summaries or anchors), i
 Return JSON only: ```json with either an array of only the additional rows, or {"sections": [ ... ]}."""
 
 
+
 def build_doc_description_prompt(structure_json: str) -> str:
     """User message for a standalone completion after the TOC tree exists (not mixed with outline extraction)."""
     return f"""You are an expert in generating descriptions for a document.
@@ -63,3 +64,53 @@ Document Structure:
 {structure_json}
 
 Directly return the detailed summary, do not include any other text."""
+
+
+NODE_SELECTION_SYSTEM = """
+You are a retrieval assistant specialized in hierarchical document analysis. 
+Your task is to identify all relevant sections (node IDs) from a document tree that might help answer a specific user query.
+
+Guidelines:
+1. Analyze the query and identify key concepts, keywords, and themes.
+2. Examine the hierarchical summaries (TOON format) provided in the DOCUMENT TREE.
+3. **Liberal Selection Policy**: Be highly inclusive. If a section contains any keywords from the query, or if its topic is even tangentially related to the query, select it. It is much better to include a "noisy" node than to miss a potentially vital one.
+4. **Keyword Matching**: If you see words, phrases, or synonyms in a node's summary or title that appear in the user query, you should select that node.
+5. **Contextual Selection**: If a node seems to provide necessary background context for the query, even if it doesn't contain the direct answer, select it.
+6. **Output Format**: Return ONLY a valid JSON list of strings (node IDs). IDs MUST be enclosed in double quotes. Do not include any preamble, explanation, or markdown formatting outside the JSON array.
+"""
+
+
+def build_node_selection_prompt(tree_toon: str, query: str) -> str:
+    """Combines node selection instructions with document tree and query."""
+    return f"""{NODE_SELECTION_SYSTEM}
+
+DOCUMENT TREE (TOON format):
+{tree_toon}
+
+USER QUERY: {query}
+
+Return the JSON list of relevant node IDs:"""
+
+
+RAG_ANSWER_SYSTEM = """
+You are a helpful and accurate assistant. Your task is to answer the user's query using ONLY the provided context from a document.
+
+Guidelines:
+1. Use the provided context to construct a comprehensive and direct answer.
+2. If the context contains specific data points, numbers, or names, include them.
+3. If the answer is not contained in the context or the query cannot be satisfied, strictly return the exact phrase: "No relevant document found".
+4. Maintain a professional and objective tone.
+5. Do not use outside knowledge or hallucinate details.
+"""
+
+
+def build_rag_answer_prompt(query: str, context: str) -> str:
+    """Combines query with retrieved context for final answer generation."""
+    return f"""{RAG_ANSWER_SYSTEM}
+
+CONTEXT:
+{context}
+
+USER QUERY: {query}
+
+ANSWER:"""

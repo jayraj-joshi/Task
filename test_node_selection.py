@@ -2,6 +2,8 @@ import os
 import json
 import requests
 
+from chunksmith.llm_support.prompts import build_node_selection_prompt
+
 def load_env():
     with open(".env", "r") as f:
         for line in f:
@@ -31,29 +33,12 @@ def main():
     load_env()
     token = os.getenv("HF_TOKEN")
     
-    with open("tree.toon", "r") as f:
+    with open("First10_output.toon", "r") as f:
         tree_toon = f.read()
 
     query = "How have the risks to achieving the Committee's employment and inflation goals changed according to the March 2024 Summary?"
     
-    prompt = f"""
-You are a precision retrieval assistant. Below is a hierarchical summary (in TOON format) of a document.
-Your task is to identify which sections (node IDs) are most relevant to answer the user's query.
-
-DOCUMENT TREE:
-{tree_toon}
-
-USER QUERY: {query}
-
-Instructions:
-1. Analyze the query and the summaries in the tree.
-2. Return a JSON list of node IDs (strings) that likely contain the information needed to answer the query.
-3. Be specific. If sub-sections are available, select the most relevant sub-sections.
-4. Return ONLY the JSON list of strings.
-
-Example Output:
-["0003", "0009"]
-"""
+    prompt = build_node_selection_prompt(tree_toon, query)
     
     models = [
         "Qwen/Qwen2.5-7B-Instruct:together",
@@ -61,7 +46,7 @@ Example Output:
     ]
     
     print(f"Task: Select relevant nodes for query: '{query}'")
-    print(f"Expected ID: 0009 (March 2024 Summary)\n")
+    print(f"Expected ID: 0002 (March 2024 Summary)\n")
     
     for model in models:
         print(f"Calling {model}...")
