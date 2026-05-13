@@ -63,7 +63,7 @@ def generate_toc_init(
     prompt = head + format_given_text_block(part)
 
     response, finish_reason = client.llm_completion(
-        settings, m, prompt, return_finish_reason=True, max_tokens=4096
+        settings, m, prompt, return_finish_reason=True, max_tokens=8192
     )
     if finish_reason != "finished":
         raise OutlineExtractionError(f"generate_toc_init finish_reason={finish_reason!r}")
@@ -95,7 +95,7 @@ def generate_toc_continue(
     )
 
     response, finish_reason = client.llm_completion(
-        settings, m, prompt, return_finish_reason=True, max_tokens=4096
+        settings, m, prompt, return_finish_reason=True, max_tokens=8192
     )
     if finish_reason != "finished":
         raise OutlineExtractionError(f"generate_toc_continue finish_reason={finish_reason!r}")

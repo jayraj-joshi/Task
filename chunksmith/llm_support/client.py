@@ -55,7 +55,7 @@ def ChatGPT_API_with_finish_reason(
     model: str,
     prompt: str,
     chat_history: Optional[List[dict]] = None,
-    max_tokens: int = 1024,
+    max_tokens: int = 4096,
 ) -> Tuple[str, str]:
     max_retries = 10
     client = get_openai_client(settings)
@@ -92,7 +92,7 @@ def ChatGPT_API(
     model: str,
     prompt: str,
     chat_history: Optional[List[dict]] = None,
-    max_tokens: int = 1024,
+    max_tokens: int = 4096,
 ) -> str:
     text, _ = ChatGPT_API_with_finish_reason(settings, model, prompt, chat_history, max_tokens=max_tokens)
     return text
@@ -130,7 +130,7 @@ def llm_completion(
     prompt: str,
     chat_history: Optional[List[dict]] = None,
     return_finish_reason: bool = False,
-    max_tokens: int = 1024,
+    max_tokens: int = 4096,
 ):
     m = model or settings.pageindex_model
     if return_finish_reason:

@@ -44,7 +44,7 @@ def generate_doc_description(
     clean = create_clean_structure_for_description(structure)
     structure_json = json.dumps(clean, ensure_ascii=False, indent=2)
     prompt = prompts.build_doc_description_prompt(structure_json)
-    raw = llm_completion(settings, model, prompt, chat_history=None)
+    raw = llm_completion(settings, model, prompt, chat_history=None, max_tokens=2048)
     text = (raw or "").strip()
     if not text or text == "Error":
         logger.warning("Document description LLM returned empty or error placeholder")

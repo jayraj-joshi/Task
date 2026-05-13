@@ -66,7 +66,7 @@ Instructions:
 - Use a professional and helpful tone.
 - If relevant, mention which parts of the context you are using.
 """
-    return llm_completion(settings, settings.rag_model, prompt)
+    return llm_completion(settings, settings.rag_model, prompt, max_tokens=2048)
 
 def main():
     print("Initializing RAG Engine...")

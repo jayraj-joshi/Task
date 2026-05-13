@@ -2,8 +2,11 @@
 
 # Appended to init/continue instructions when ``add_summary`` is enabled (same completion as outline rows).
 SUMMARY_INSTRUCTION = """
-Each row must also include "summary" (string): one or two concise sentences describing what that section covers,
-using only information visible in the given excerpt (no outside knowledge)."""
+Each row must also include "summary" (string): provide a detailed and dynamic summary that is 
+approximately 30% of the length of the original section text. The summary should capture 
+key concepts, specific data points, and context using only information visible in the given 
+excerpt (no outside knowledge). Ensure the summary length scales with the section's importance 
+and detail."""
 
 # Appended when ``add_word_range=True``: one verbatim alignment string per row (no word indices).
 ANCHOR_INSTRUCTION = """
@@ -54,9 +57,9 @@ Return JSON only: ```json with either an array of only the additional rows, or {
 def build_doc_description_prompt(structure_json: str) -> str:
     """User message for a standalone completion after the TOC tree exists (not mixed with outline extraction)."""
     return f"""You are an expert in generating descriptions for a document.
-You are given a structure of a document. Your task is to generate a one-sentence description for the document, which makes it easy to distinguish the document from other documents.
+You are given a structure of a document. Your task is to generate a comprehensive and detailed summary (2-3 paragraphs) for the document, highlighting the main purpose, key findings, and overall organization. The summary should be informative enough to give a deep understanding of the document's content.
 
 Document Structure:
 {structure_json}
 
-Directly return the description, do not include any other text."""
+Directly return the detailed summary, do not include any other text."""

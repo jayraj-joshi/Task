@@ -1,0 +1,69 @@
+QUERY 1: What is the "Transformer" architecture based on, and what does it dispense with?
+EXPECTED ANSWER: The Transformer architecture is based solely on attention mechanisms. It dispenses with recurrence and convolutions entirely, which were the dominant components in previous sequence transduction models.
+RAG ANSWER: Based on the document, the Transformer is a new simple network architecture based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. It relies on an attention mechanism to draw global dependencies between input and output.
+NODES SELECTED: 0000, 0002, 0006
+
+--------------------------------------------------------------------------------
+
+QUERY 2: How does the number of operations required to relate signals from two arbitrary positions in the Transformer compare to ConvS2S and ByteNet?
+EXPECTED ANSWER: In the Transformer, the number of operations required to relate signals from two arbitrary positions is reduced to a constant number of operations. In contrast, it grows linearly for ConvS2S and logarithmically for ByteNet as the distance between positions increases.
+RAG ANSWER: In the Transformer, the number of operations required to relate signals from two arbitrary input or output positions is reduced to a constant number of operations. This is an improvement over models like ConvS2S, where it grows linearly, and ByteNet, where it grows logarithmically with the distance between positions.
+NODES SELECTED: 0004, 0005
+
+--------------------------------------------------------------------------------
+
+QUERY 3: What is "Self-attention" and what is its role in the Transformer?
+EXPECTED ANSWER: Self-attention (or intra-attention) is an attention mechanism relating different positions of a single sequence to compute a representation of that sequence. In the Transformer, it is the fundamental building block used to compute representations of input and output without using RNNs or convolutions.
+RAG ANSWER: Self-attention is an attention mechanism that relates different positions of a single sequence to compute a representation of the sequence. The Transformer is the first transduction model relying entirely on self-attention to compute representations of its input and output without using sequence-aligned RNNs or convolution.
+NODES SELECTED: 0004, 0006, 0009
+
+--------------------------------------------------------------------------------
+
+QUERY 4: Describe the two sub-layers in each layer of the Transformer encoder.
+EXPECTED ANSWER: Each layer of the Transformer encoder consists of two sub-layers: 1) A multi-head self-attention mechanism, and 2) A simple, position-wise fully connected feed-forward network. Both sub-layers use residual connections followed by layer normalization.
+RAG ANSWER: The encoder is composed of a stack of N=6 identical layers, each containing two sub-layers. The first is a multi-head self-attention mechanism, and the second is a simple, position-wise fully connected feed-forward network. Residual connections and layer normalization are employed around each sub-layer.
+NODES SELECTED: 0007, 0008
+
+--------------------------------------------------------------------------------
+
+QUERY 5: What is "Scaled Dot-Product Attention" and how is it calculated?
+EXPECTED ANSWER: Scaled Dot-Product Attention is a particular attention mechanism where the input consists of queries (Q) and keys (K) of dimension dk, and values (V) of dimension dv. It is calculated by taking the dot product of the query with all keys, dividing by sqrt(dk), and applying a softmax function to obtain weights on the values: Attention(Q, K, V) = softmax(QK^T / sqrt(dk))V.
+RAG ANSWER: Scaled Dot-Product Attention computes the dot products of the query with all keys, divides each by the square root of the dimension dk, and applies a softmax function to obtain the weights on the values. The formula is Attention(Q, K, V) = softmax((QK^T)/sqrt(dk))V.
+NODES SELECTED: 0009, 0010
+
+--------------------------------------------------------------------------------
+
+QUERY 6: How does Multi-Head Attention allow the model to jointly attend to information from different representation subspaces?
+EXPECTED ANSWER: Multi-Head Attention linearly projects queries, keys, and values multiple times (h times) with different learned projections. By performing attention on these projected versions in parallel, the model can jointly attend to information from different representation subspaces at different positions, which is inhibited by averaging in single-head attention.
+RAG ANSWER: Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions by performing multiple attention functions in parallel with different, learned linear projections. This prevents the "averaging" effect of a single attention head.
+NODES SELECTED: 0009, 0011
+
+--------------------------------------------------------------------------------
+
+QUERY 7: Why does the Transformer use positional encoding, and what specific functions are used for it?
+EXPECTED ANSWER: Since the Transformer contains no recurrence or convolution, it needs positional encoding to make use of the order of the sequence. It uses sine and cosine functions of different frequencies: PE(pos, 2i) = sin(pos/10000^(2i/dmodel)) and PE(pos, 2i+1) = cos(pos/10000^(2i/dmodel)).
+RAG ANSWER: Because the model has no recurrence or convolution, positional encodings are added to input embeddings to inject information about the relative or absolute position of tokens. The Transformer uses sine and cosine functions of different frequencies for this purpose.
+NODES SELECTED: 0014
+
+--------------------------------------------------------------------------------
+
+QUERY 8: On which dataset was the Transformer trained for English-to-German translation, and what were the results?
+EXPECTED ANSWER: The Transformer was trained on the WMT 2014 English-German dataset (4.5 million sentence pairs). The big model achieved a state-of-the-art BLEU score of 28.4, outperforming previous best results by over 2 BLEU, while being significantly faster to train.
+RAG ANSWER: The model was trained on the standard WMT 2014 English-German dataset. The big Transformer model achieved a new state-of-the-art BLEU score of 28.4, surpassing previous models and ensembles by more than 2.0 BLEU.
+NODES SELECTED: 0017, 0018, 0022, 0023
+
+--------------------------------------------------------------------------------
+
+QUERY 9: What are the advantages of self-attention layers over recurrent layers in terms of computational complexity?
+EXPECTED ANSWER: Self-attention layers connect all positions with a constant number of sequentially executed operations (O(1)), whereas recurrent layers require O(n) sequential operations. This makes self-attention faster when the sequence length n is smaller than the representation dimensionality d.
+RAG ANSWER: A self-attention layer connects all positions with a constant number of sequentially executed operations, while a recurrent layer requires O(n) sequential operations. In terms of complexity, self-attention layers are faster than recurrent layers when the sequence length is smaller than the representation dimensionality.
+NODES SELECTED: 0015, 0016
+
+--------------------------------------------------------------------------------
+
+QUERY 10: How did the Transformer perform on the English constituency parsing task compared to other models?
+EXPECTED ANSWER: The Transformer performed surprisingly well on English constituency parsing, yielding an F1 score of 91.3 (WSJ only) and 92.7 (semi-supervised), outperforming almost all previously reported models including the BerkeleyParser, despite a lack of task-specific tuning.
+RAG ANSWER: The Transformer performed well on English constituency parsing, achieving better results than all previously reported models except the Recurrent Neural Network Grammar. It achieved an F1 score of 91.3 on the WSJ only setting and 92.7 in the semi-supervised setting.
+NODES SELECTED: 0022, 0025
+
+--------------------------------------------------------------------------------
