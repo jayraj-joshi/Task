@@ -49,10 +49,92 @@ Visit `http://localhost:8000/docs` for the interactive API documentation.
 ### API Features
 - **Smart Caching:** Files are hashed using SHA-256. If you upload a PDF that has already been processed, the API returns the cached result instantly from the DB, saving LLM costs.
 - **Persistence:** All document trees and summaries are stored in PostgreSQL (Neon), allowing you to query them by `document_id` anytime.
-- **Endpoints:**
-  - `POST /process`: Upload a PDF to index it. (Add `?force=true` to re-process an existing file).
-  - `POST /query`: Query a processed document by its ID.
-  - `GET /documents`: List all indexed documents.
+## API Reference
+
+The API is the primary way to interact with the PageIndexer in a production environment. 
+
+### 1. List Documents
+Retrieve a list of all documents that have been processed and stored in the database.
+
+**Endpoint:** `GET /documents`
+
+**cURL Example:**
+```bash
+curl -X GET http://localhost:8000/documents
+```
+
+**Response Schema:**
+```json
+[
+  {
+    "id": 1,
+    "filename": "annual_report.pdf",
+    "created_at": "2024-03-20T10:00:00Z"
+  }
+]
+```
+
+---
+
+### 2. Process Document
+Upload a PDF to be parsed and indexed. This performs the hierarchical summary extraction.
+
+**Endpoint:** `POST /process`
+
+**Parameters:**
+- `file`: The PDF file (form-data).
+- `force` (optional): If `true`, re-processes the file even if it has been indexed before.
+
+**cURL Example:**
+```bash
+curl -X POST http://localhost:8000/process \
+  -F "file=@/path/to/document.pdf"
+```
+
+**cURL Example (Force Re-process):**
+```bash
+curl -X POST "http://localhost:8000/process?force=true" \
+  -F "file=@/path/to/document.pdf"
+```
+
+**Response Schema:**
+```json
+{
+  "message": "Document processed successfully",
+  "document_id": 1,
+  "filename": "document.pdf"
+}
+```
+
+---
+
+### 3. Query Document
+Ask a question against a specific processed document using the Hierarchical RAG pipeline.
+
+**Endpoint:** `POST /query`
+
+**Request Schema:**
+```json
+{
+  "document_id": 1,
+  "query": "What are the key financial highlights?"
+}
+```
+
+**cURL Example:**
+```bash
+curl -X POST http://localhost:8000/query \
+  -H "Content-Type: application/json" \
+  -d '{"document_id": 1, "query": "What are the key financial highlights?"}'
+```
+
+**Response Schema:**
+```json
+{
+  "answer": "The key highlights include a 15% increase in revenue...",
+  "selected_nodes": ["0001", "0005", "0012"]
+}
+```
 
 ---
 
